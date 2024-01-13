@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<title>This is currency converter</title>
+		<style>	
+			
+			input{
+				margin:20px;	
+			}
+			div p{
+			
+			display:inline-block;
+			margin-right:20px;
+			color:white;
+			
+			}
+			form{
+				background-image:url("cur4.jpg");
+				background-size:cover;
+				height:550px;
+				width:800px;
+				border:2.5px solid black;
+				box-shadow:20px 20px 20px black;
+				color:white;
+				font-size:20px;
+				font-weight:bolder;
+				border-radius:40px;
+			}
+			div{
+				margin:150px;
+				padding:10px;
+				border-radius:50px;
+				border:5px solid white;
+				box-shadow:20px 20px 20px black;
+				
+			}
+			body{
+				background-image:url("cur1.jpg");
+				background-size:cover;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<h1 align="center">This is currency converter website</h1>
+		<center><form align="center">
+			<label>convert currency from :</label>
+			<input type="text" id="have">
+			<br>
+			<label>convert currency to :</label>
+			<input type="text" id="want">
+			<br>
+			<label>Amount :</label>
+			<input type="text" id="amount">
+			<br>
+			<button type="submit" value="submit" id="submit">convert</button>
+			<br>
+			<div>
+			<p>From :<span id="old_currency"></span></p>
+			<p>To : <span id="new_currency"></span></p>
+			<p>Old amount : <span id="old_amount"></span></p>
+			<p>New amount : <span id="new_amount"></p>
+			</div>
+		</form>
+		</center>
+		<script>
+			
+		
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'db0720b473mshcadbbbbc29c0d7ep1fcdeajsne35f6245355c',
+		'X-RapidAPI-Host': 'currency-converter-by-api-ninjas.p.rapidapi.com'
+	}
+};
+
+	const currencyapp = (have,want,amount) => {
+	
+		fetch('https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency?have='+have+'&want='+want+'&amount='+amount,options)
+			.then((response) => {
+				console.log(response.status)
+				console.log(response.ok)
+				
+				return response.json()
+			
+			})
+			.then((data) => {
+			
+				console.log(data)
+				
+				old_currency.innerHTML = data.old_currency
+				new_currency.innerHTML = data.new_currency
+				old_amount.innerHTML = data.old_amount
+				new_amount.innerHTML = data.new_amount
+			})
+	}
+	
+		submit.addEventListener('click', (e) => {
+			e.preventDefault()
+			currencyapp(have.value,want.value,amount.value)
+		})
+		
+			currencyapp('USD','EUR')
+		
+		</script>
+	</body>
+</html>
